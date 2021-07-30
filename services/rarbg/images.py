@@ -1,10 +1,8 @@
 from config import base
 import os
 from utils import tool
-import time
 from random import randint
 import requests
-
 
 def download(image_url):
     extension = '.jpg'
