@@ -12,10 +12,9 @@ def do_asia():
     while page <= base.CRAWLER_MAX_PAGE:
         requested_url = base.CRAWLER_URL_ASIA + base.CRAWLER_URI_ASIA % page
 
-        javlibrary_service.do_original_source_scrawler_with_selenium(requested_url)
+        javlibrary_service.do_original_source_crawler_with_selenium(requested_url)
 
         page = page + 1
-
 
 def do_euro():
     logging.basicConfig(filename='log.log', level=logging.DEBUG, format='%(levelname)s:%(asctime)s %(message)s')
@@ -28,7 +27,6 @@ def do_euro():
         rarbg_service.do_original_source_scrawler(requested_url)
 
         page = page + 1
-
 
 def main():
     n = randint(base.IS_ASIA, base.IS_EURO)

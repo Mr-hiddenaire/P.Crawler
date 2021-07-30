@@ -7,7 +7,6 @@ from services.searcher import torrent_searcher
 from utils.selenium.chrome import browser
 import time
 
-
 def parse_columns(origin_html_list):
     doc = PyQuery(origin_html_list)
 
@@ -102,13 +101,13 @@ def do_original_source_scrawler(url):
     parse_columns(original_html)
 
 
-def do_original_source_scrawler_with_selenium(url):
+def do_original_source_crawler_with_selenium(url):
     """ driver initialization """
     driver = browser.get_driver()
 
     driver.get(url)
 
-    """ sleep 6 sec to wait cf protection """
+    """ sleep 6 sec to wait for cf protection finish """
     time.sleep(6)
 
     htmls = driver.page_source

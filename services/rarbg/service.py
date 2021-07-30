@@ -11,8 +11,6 @@ from models import db
 from utils import tool
 from models import contents_model
 from services.searcher import torrent_searcher
-from services.rarbg import images
-
 
 def do_original_source_scrawler(url):
     """ defence broken driver initialization """

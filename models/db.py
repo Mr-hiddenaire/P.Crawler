@@ -1,21 +1,13 @@
 from config import database
-import sqlalchemy
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-engine = None
-def init():
+engine = create_engine('mysql+mysqlconnector://'+database.DB_USERNAME+':'+database.DB_PASSWORD+'@'+database.DB_HOST+':'+database.DB_PORT+'/'+database.DB_NAME+'', echo=True)
+_SessionFactory = sessionmaker(bind=engine)
 
-    global engine
+Base = declarative_base()
 
-    if engine is None:
-        engine = sqlalchemy.create_engine('mysql+mysqlconnector://'+database.DB_USERNAME+':'+database.DB_PASSWORD+'@'+database.DB_HOST+':'+database.DB_PORT+'/'+database.DB_NAME+'', echo=True)
-
-    db_session = sessionmaker(bind=engine)
-
-    return db_session()
-
-
-def bulk_insert(data, cls):
-    engine.execute(
-        cls.__table__.insert(),data
-    )
+def session_factory():
+    Base.metadata.create_all(engine)
+    return _SessionFactory()
