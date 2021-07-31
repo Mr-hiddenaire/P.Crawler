@@ -9,7 +9,9 @@ class ContentService:
         for info in data:
             obj = self.get_content_by_detail_url_hash(info['detail_url_hash'], info['types'])
             if hasattr(obj, 'id') is False:
-                Contents.add_contents(Contents(info['name'], info['unique_id'], info['tags'], info['types'], info['thumb_url'], info['torrent_url'], info['detail_url'], info['pick_up_status'], info['pick_up_time'], info['is_archive'], info['archive_priority'], info['list_url_hash'], info['detail_url_hash']))
+                Contents().add_contents(info['name'], info['unique_id'], info['tags'], info['types'], info['thumb_url'], info['torrent_url'], info['entry_point'], info['detail_url'], info['pick_up_status'], info['pick_up_time'], info['is_archive'], info['archive_priority'], info['list_url_hash'], info['detail_url_hash'], info['is_scraped'])
+                inserted_info = Contents.get_content_by_detail_url_hash(info['detail_url_hash'], info['types'])
+                Contents.update_scraped_by_pk(inserted_info.id, {'is_scraped': 1})
 
     @staticmethod
     def is_page_scraped(url_hash=None, types=None):

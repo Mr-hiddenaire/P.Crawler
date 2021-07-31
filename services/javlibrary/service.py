@@ -47,6 +47,7 @@ def parse_data_according_to_html_generator(html_generator, base_url):
         thumb_url = ''
         """ Value assignation later """
         torrent_url = ''
+        entry_point=base_url
         detail_url = base_config.CRAWLER_URL_ASIA + doc('a').attr('href').replace('./', '')
         pick_up_status = 0
         pick_up_time = 0
@@ -54,6 +55,7 @@ def parse_data_according_to_html_generator(html_generator, base_url):
         archive_priority = 0
         list_url_hash = hash_with_blake2b(base_url)
         detail_url_hash = hash_with_blake2b(detail_url)
+        is_scraped = 0
 
         info = {
             'name': name,
@@ -63,12 +65,15 @@ def parse_data_according_to_html_generator(html_generator, base_url):
             'thumb_url': thumb_url,
             'torrent_url': torrent_url,
             'detail_url': detail_url,
+            'entry_point': entry_point,
             'pick_up_status': pick_up_status,
             'pick_up_time': pick_up_time,
             'is_archive': is_archive,
             'archive_priority': archive_priority,
             'list_url_hash': list_url_hash,
             'detail_url_hash': detail_url_hash,
+            'is_scraped': is_scraped,
+
         }
 
         result.append(info)

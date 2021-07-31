@@ -5,9 +5,9 @@ from services.javlibrary import service as javlibrary_service
 from services.rarbg import service as rarbg_service
 from services.content import ContentService
 
-def do_asia():
-    logging.basicConfig(filename='log.log',level=logging.INFO, format='%(levelname)s:%(asctime)s %(message)s')
+logging.basicConfig(filename='log.log',level=logging.INFO, format='%(levelname)s:%(asctime)s %(message)s')
 
+def do_asia():
     page = 1
 
     while page <= base_config.CRAWLER_MAX_PAGE:
@@ -21,8 +21,6 @@ def do_asia():
         page = page + 1
 
 def do_euro():
-    logging.basicConfig(filename='log.log', level=logging.INFO, format='%(levelname)s:%(asctime)s %(message)s')
-
     page = 1
 
     while page <= base_config.CRAWLER_MAX_PAGE:
