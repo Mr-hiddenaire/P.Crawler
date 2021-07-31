@@ -22,7 +22,7 @@ class Downloader:
             raise FileNotFoundError('Download torrent directory does not exists')
 
         """ driver initialization """
-        driver = rarbg_base_service.break_defence(self.torrent_url)
+        driver = rarbg_base_service.break_defence(url=self.torrent_url, is_success_landing_page='download')
         driver.command_executor._commands["send_command"] = ("POST", '/session/$sessionId/chromium/send_command')
         params = {'cmd': 'Page.setDownloadBehavior', 'params': {'behavior': 'allow', 'downloadPath': download_torrent_tmp_path}}
         driver.execute("send_command", params)

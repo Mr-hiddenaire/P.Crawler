@@ -30,8 +30,6 @@ def do_euro():
             torrent_path = RarbgDownloader(torrent_url=info.torrent_url).download()
             if torrent_path is not None:
                 ContentService.update_content_by_pk(pk=info.id, data={'torrent_path': torrent_path, 'is_scraped': base_config.TORRENT_SCRAPED_STATUS})
-                print(torrent_path)
-                exit()
         page = page + 1
 
 def main():
