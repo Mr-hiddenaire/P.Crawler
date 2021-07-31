@@ -2,7 +2,6 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import os
 
-
 def get_driver():
     chrome_options = Options()
 

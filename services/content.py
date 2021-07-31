@@ -47,3 +47,8 @@ class ContentService:
     def update_content_by_pk(pk=None, data=None):
         res = Contents.update_content_by_pk(pk=pk, data=data)
         return res
+
+    @staticmethod
+    def get_content_not_scraped_torrent_url_is_empty(offset=None, page_size=None, types=None, is_scraped=None):
+        list_result = Contents.get_content_not_scraped_torrent_url_is_empty(offset=offset, page_size=page_size, types=types, is_scraped=is_scraped)
+        return list_result

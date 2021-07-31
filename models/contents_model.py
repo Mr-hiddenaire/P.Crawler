@@ -81,6 +81,13 @@ class Contents(Base):
     @staticmethod
     def get_contents_not_scraped_by_type(offset=None, page_size=None, types=None, is_scraped=None):
         session = session_factory()
-        res = session.query(Contents).filter(Contents.type == types, Contents.is_scraped == is_scraped).offset(offset).limit(page_size).all()
+        res = session.query(Contents).filter(Contents.type==types, Contents.is_scraped==is_scraped).offset(offset).limit(page_size).all()
+        session.close()
+        return res
+
+    @staticmethod
+    def get_content_not_scraped_torrent_url_is_empty(offset=None, page_size=None, types=None, is_scraped=None):
+        session = session_factory()
+        res = session.query(Contents).filter(Contents.type==types, Contents.is_scraped==is_scraped, Contents.torrent_url=='').offset(offset).limit(page_size).all()
         session.close()
         return res
