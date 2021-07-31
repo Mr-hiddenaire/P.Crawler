@@ -6,7 +6,7 @@ from utils.selenium.chrome import browser
 from pyquery import PyQuery
 from utils.tool import hash_with_blake2b
 
-def do_original_source_crawler_with_selenium(url):
+def do_original_source_crawler_with_selenium(url=None):
     url_hash = hash_with_blake2b(url)
     is_scraped = ContentService.is_page_scraped(url_hash, base_config.IS_ASIA)
 
@@ -27,14 +27,14 @@ def do_original_source_crawler_with_selenium(url):
     else:
         logging.info('url:' + url + ' >>>>>> hash:' + url_hash + ' is scraped')
 
-def get_html_generator_according_to_original_html(original_html):
+def get_html_generator_according_to_original_html(original_html=None):
     doc = PyQuery(original_html)
 
     html_generator = doc('.video').items()
 
     return html_generator
 
-def parse_data_according_to_html_generator(html_generator, base_url):
+def parse_data_according_to_html_generator(html_generator=None, base_url=None):
     result = []
     for html in html_generator:
         doc = PyQuery(html)

@@ -1,25 +1,19 @@
 from config import base as base_config
-from config import coordinate
 import logging
-import re
-import time
-from PIL import Image
-import pytesseract
-from utils.selenium.chrome import browser
-from selenium.common.exceptions import NoSuchElementException
 from pyquery import PyQuery
 from utils.tool import hash_with_blake2b
 from services.content import ContentService
+from services.rarbg import base as rarbg_base_service
 
-def do_original_source_crawler_with_selenium(url):
+def do_original_source_crawler_with_selenium(url=None):
     url_hash = hash_with_blake2b(url)
-    is_scraped = ContentService.is_page_scraped(url_hash, base_config.IS_EURO)
+    is_scraped = ContentService.is_page_scraped(url_hash=url_hash, types=base_config.IS_EURO)
 
     if is_scraped is False:
         logging.info('url:' + url + ' >>>>>> hash:' + url_hash + ' is scraping')
 
         """ driver initialization """
-        driver = break_defence(url)
+        driver = rarbg_base_service.break_defence(url=url)
 
         if driver is not None:
             driver.get(url)
@@ -28,81 +22,18 @@ def do_original_source_crawler_with_selenium(url):
 
             return html
         else:
-            logging.info('url:' + url + ' >>>>>> hash:' + url_hash + ' is scraped')
-
-def break_defence(url):
-    screenshot_filename = 'screenshot.png'
-    captcha_filename = 'captcha.png'
-
-    driver = browser.get_driver()
-    driver.get(url)
-
-    try:
-        time.sleep(6)
-        driver.find_element_by_link_text('Click here').click()
-        driver.save_screenshot(screenshot_filename)
-        make_screenshot_to_captcha_image(screenshot_filename, captcha_filename)
-        captcha_number = solve_captcha_number_from_image(captcha_filename)
-
-        driver.find_element_by_id('solve_string').send_keys(captcha_number)
-        driver.find_element_by_id('button_submit').click()
-        break_success = parse_break_defence_success(driver.page_source)
-
-        if break_success is True:
-            return driver
-        else:
-            driver.close()
-            return None
-    except NoSuchElementException:
-        try:
-            time.sleep(6)
-            driver.save_screenshot(screenshot_filename)
-            make_screenshot_to_captcha_image(screenshot_filename, captcha_filename)
-            captcha_number = solve_captcha_number_from_image(captcha_filename)
-
-            driver.find_element_by_id('solve_string').send_keys(captcha_number)
-            driver.find_element_by_id('button_submit').click()
-            break_success = parse_break_defence_success(driver.page_source)
-
-            if break_success is True:
-                return driver
-            else:
-                driver.close()
-                return None
-        except NoSuchElementException:
-            return None
-
-    return None
-
-def make_screenshot_to_captcha_image(screenshot_filename, captcha_filename):
-    im = Image.open(screenshot_filename)
-
-    im2 = im.crop((coordinate.X, coordinate.Y, coordinate.X + coordinate.W, coordinate.Y + coordinate.H))
-    im2.save(captcha_filename)
-
-def solve_captcha_number_from_image(filename):
-    img = Image.open(filename)
-    number = pytesseract.image_to_string(img)
-
-    return number
-
-def parse_break_defence_success(html):
-    pattern = re.compile('mcpslar')
-    result = re.findall(pattern, html)
-
-    if len(result) > 0:
-        return True
+            logging.info('Web driver initialization of break defence fail')
     else:
-        return False
+        logging.info('url:' + url + ' >>>>>> hash:' + url_hash + ' is scraped')
 
-def get_html_generator_according_to_original_html(original_html):
+def get_html_generator_according_to_original_html(original_html=None):
     doc = PyQuery(original_html)
 
     html_generator = doc('.lista2').items()
 
     return html_generator
 
-def parse_data_according_to_html_generator(html_generator, base_url):
+def parse_data_according_to_html_generator(html_generator=None, base_url=None):
     result = []
     for html in html_generator:
         doc = PyQuery(html)

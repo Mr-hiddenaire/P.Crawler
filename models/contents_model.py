@@ -64,9 +64,23 @@ class Contents(Base):
         return res
 
     @staticmethod
-    def update_scraped_by_pk(pk=None, data=None):
+    def update_content_by_pk(pk=None, data=None):
         session = session_factory()
-        res = session.query(Contents).filter(Contents.id==pk).update({Contents.is_scraped: data['is_scraped']})
+        res = session.query(Contents).filter(Contents.id==pk).update(data)
         session.commit()
+        session.close()
+        return res
+
+    @staticmethod
+    def get_total_not_scraped_by_type(types=None, is_scraped=None):
+        session = session_factory()
+        res = session.query(Contents).filter(Contents.type==types, Contents.is_scraped==is_scraped).count()
+        session.close()
+        return res
+
+    @staticmethod
+    def get_contents_not_scraped_by_type(offset=None, page_size=None, types=None, is_scraped=None):
+        session = session_factory()
+        res = session.query(Contents).filter(Contents.type == types, Contents.is_scraped == is_scraped).offset(offset).limit(page_size).all()
         session.close()
         return res
