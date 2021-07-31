@@ -47,6 +47,8 @@ def parse_data_according_to_html_generator(html_generator=None, base_url=None):
         thumb_url = ''
         """ Value assignation later """
         torrent_url = ''
+        """ Value assignation later """
+        torrent_path = ''
         entry_point = base_url
         detail_url = base_config.CRAWLER_URL_EURO + doc('tr').find('td').eq(1).find('a').attr('href')
         pick_up_status = 0
@@ -64,6 +66,7 @@ def parse_data_according_to_html_generator(html_generator=None, base_url=None):
             'types': types,
             'thumb_url': thumb_url,
             'torrent_url': torrent_url,
+            'torrent_path': torrent_path,
             'entry_point': entry_point,
             'detail_url': detail_url,
             'pick_up_status': pick_up_status,

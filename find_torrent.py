@@ -1,7 +1,7 @@
 import logging
 from services.content import ContentService
 from config import base as base_config
-from services.searcher.torrentor import TorrentorService
+from services.javlibrary.torrentor import TorrentorService
 
 def do_asia():
     page = 1

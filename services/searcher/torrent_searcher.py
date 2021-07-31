@@ -10,8 +10,6 @@ import re
 
 def find_torrent(unique_id=None):
     g_cse_api = config_searcher.GOOGLE_API_URL % (unique_id, config_searcher.GOOGLE_CSE_CX, config_searcher.GOOGLE_CSE_API_KEY, base_config.GOOGLE_CSE_QUERY_NUM)
-    print(g_cse_api)
-    exit()
     response = requests.get(g_cse_api, headers={'User-Agent': base_config.USER_AGENT})
 
     logging.info('G-CES.result: ' + response.text)
