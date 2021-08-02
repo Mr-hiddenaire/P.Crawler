@@ -6,7 +6,7 @@ from services.javlibrary.torrentor import TorrentorService
 def do_asia():
     page = 1
     offset = (page - 1)*base_config.COMMON_PAGES_SIZE
-    page_size = 100
+    page_size = base_config.COMMON_PAGES_SIZE
 
     list_result = ContentService.get_content_not_scraped_torrent_url_is_empty(offset=offset, page_size=page_size, types=base_config.IS_ASIA, is_scraped=base_config.DETAIL_SCRAPED_STATUS)
     for info in list_result:
