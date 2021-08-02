@@ -8,7 +8,7 @@ from utils.tool import hash_with_blake2b
 
 def do_original_source_crawler_with_selenium(url=None):
     url_hash = hash_with_blake2b(url)
-    is_scraped = ContentService.is_page_scraped(url_hash, base_config.IS_ASIA)
+    is_scraped = ContentService.is_page_scraped_v2()
 
     if is_scraped is False:
         logging.info('url:' + url + ' >>>>>> hash:' + url_hash + ' is scraping')

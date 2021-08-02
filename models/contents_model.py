@@ -37,13 +37,15 @@ class Contents(Base):
         self.thumb_url = thumb_url
         self.torrent_url = torrent_url
         self.torrent_path = torrent_path
-        self.entry_point = entry_point
+        self.entry_point = ''
+        #self.entry_point = entry_point
         self.detail_url = detail_url
         self.pick_up_status = pick_up_status
         self.pick_up_time = pick_up_time
         self.is_archive = is_archive
         self.archive_priority = archive_priority
-        self.list_url_hash = list_url_hash
+        #self.list_url_hash = 'list_url_hash'
+        self.list_url_hash = ''
         self.detail_url_hash = detail_url_hash
         self.is_scraped = is_scraped
 

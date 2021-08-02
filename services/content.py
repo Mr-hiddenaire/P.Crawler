@@ -29,6 +29,10 @@ class ContentService:
                 return False
 
     @staticmethod
+    def is_page_scraped_v2():
+        return False
+
+    @staticmethod
     def get_content_by_detail_url_hash(url_hash=None, types=None):
         info = Contents.get_content_by_detail_url_hash(url_hash=url_hash, types=types)
         return info

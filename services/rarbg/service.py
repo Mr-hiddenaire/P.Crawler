@@ -7,7 +7,7 @@ from services.rarbg import base as rarbg_base_service
 
 def do_original_source_crawler_with_selenium(url=None):
     url_hash = hash_with_blake2b(url)
-    is_scraped = ContentService.is_page_scraped(url_hash=url_hash, types=base_config.IS_EURO)
+    is_scraped = ContentService.is_page_scraped_v2()
 
     if is_scraped is False:
         logging.info('url:' + url + ' >>>>>> hash:' + url_hash + ' is scraping')
