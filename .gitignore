@@ -22,3 +22,4 @@ config/searcher.py
 config/database.py
 config/base.py
 config/coordinate.py
+testing.py
