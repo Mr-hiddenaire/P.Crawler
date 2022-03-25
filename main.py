@@ -8,9 +8,12 @@ from utils import tool
 
 logging.basicConfig(filename='log.log',level=logging.INFO, format='%(levelname)s:%(asctime)s %(message)s')
 
-def main():
+def check_process_exists_or_not_specialty():
     tool.check_process_exists_or_not('ps -ef |grep -v grep |grep chrome')
     tool.check_process_exists_or_not('ps -ef |grep -v grep |grep google')
+
+def main():
+    check_process_exists_or_not_specialty()
 
     n = randint(base_config.IS_ASIA, base_config.IS_EURO)
     func = base_config.MAP_FUNC[n]

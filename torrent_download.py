@@ -6,14 +6,9 @@ from services.rarbg.downloader import Downloader as RarbgDownloader
 from utils import tool
 
 def do_asia():
-    tool.check_process_exists_or_not('ps -ef |grep -v grep |grep chrome')
-    tool.check_process_exists_or_not('ps -ef |grep -v grep |grep google')
-
     page = 1
     total = ContentService.get_total_torrent_not_download(types=base_config.IS_ASIA, is_scraped=base_config.DETAIL_SCRAPED_STATUS)
     pages = (total / base_config.COMMON_PAGES_SIZE) + 1
-
-
 
     while page <= pages:
         offset = (page - 1) * base_config.COMMON_PAGES_SIZE
@@ -38,7 +33,13 @@ def do_euro():
                 ContentService.update_content_by_pk(pk=info.id, data={'torrent_path': torrent_path, 'is_scraped': base_config.TORRENT_SCRAPED_STATUS})
         page = page + 1
 
+def check_process_exists_or_not_specialty():
+    tool.check_process_exists_or_not('ps -ef |grep -v grep |grep chrome')
+    tool.check_process_exists_or_not('ps -ef |grep -v grep |grep google')
+
 def main():
+    check_process_exists_or_not_specialty()
+
     n = randint(base_config.IS_ASIA, base_config.IS_EURO)
     func = base_config.MAP_FUNC[n]
     eval(func)()

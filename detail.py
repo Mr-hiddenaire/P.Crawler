@@ -6,12 +6,15 @@ from services.rarbg import detail_service as rarbg_detail_service
 from utils import tool
 
 def main():
-    tool.check_process_exists_or_not('ps -ef |grep -v grep |grep chrome')
-    tool.check_process_exists_or_not('ps -ef |grep -v grep |grep google')
+    check_process_exists_or_not_specialty()
 
     n = randint(base_config.IS_ASIA, base_config.IS_EURO)
     func = base_config.MAP_FUNC[n]
     eval(func)()
+
+def check_process_exists_or_not_specialty():
+    tool.check_process_exists_or_not('ps -ef |grep -v grep |grep chrome')
+    tool.check_process_exists_or_not('ps -ef |grep -v grep |grep google')
 
 def do_asia():
     page = 1

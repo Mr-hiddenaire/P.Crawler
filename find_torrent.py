@@ -5,9 +5,6 @@ from services.javlibrary.torrentor import TorrentorService
 from utils import tool
 
 def do_asia():
-    tool.check_process_exists_or_not('ps -ef |grep -v grep |grep chrome')
-    tool.check_process_exists_or_not('ps -ef |grep -v grep |grep google')
-    
     page = 1
     offset = (page - 1)*base_config.COMMON_PAGES_SIZE
     page_size = base_config.COMMON_PAGES_SIZE
@@ -21,7 +18,13 @@ def do_asia():
         else:
             logging.info(info.detail_url + ' >>> has no torrent url')
 
+def check_process_exists_or_not_specialty():
+    tool.check_process_exists_or_not('ps -ef |grep -v grep |grep chrome')
+    tool.check_process_exists_or_not('ps -ef |grep -v grep |grep google')
+
 def main():
+    check_process_exists_or_not_specialty()
+
     do_asia()
 
 if __name__ == '__main__':
