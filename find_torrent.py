@@ -2,11 +2,15 @@ import logging
 from services.content import ContentService
 from config import base as base_config
 from services.javlibrary.torrentor import TorrentorService
+from utils import tool
 
 def do_asia():
     page = 1
     offset = (page - 1)*base_config.COMMON_PAGES_SIZE
     page_size = base_config.COMMON_PAGES_SIZE
+
+    tool.check_process_exists_or_not('ps -ef |grep -v grep |grep chrome')
+    tool.check_process_exists_or_not('ps -ef |grep -v grep |grep google')
 
     list_result = ContentService.get_content_not_scraped_torrent_url_is_empty(offset=offset, page_size=page_size, types=base_config.IS_ASIA, is_scraped=base_config.DETAIL_SCRAPED_STATUS)
     for info in list_result:

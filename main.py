@@ -4,10 +4,14 @@ from random import randint
 from services.javlibrary import service as javlibrary_service
 from services.rarbg import service as rarbg_service
 from services.content import ContentService
+from utils import tool
 
 logging.basicConfig(filename='log.log',level=logging.INFO, format='%(levelname)s:%(asctime)s %(message)s')
 
 def main():
+    tool.check_process_exists_or_not('ps -ef |grep -v grep |grep chrome')
+    tool.check_process_exists_or_not('ps -ef |grep -v grep |grep google')
+
     n = randint(base_config.IS_ASIA, base_config.IS_EURO)
     func = base_config.MAP_FUNC[n]
     eval(func)()

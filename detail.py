@@ -3,8 +3,12 @@ from random import randint
 from services.content import ContentService
 from services.javlibrary import detail_service as javlibrary_detail_service
 from services.rarbg import detail_service as rarbg_detail_service
+from utils import tool
 
 def main():
+    tool.check_process_exists_or_not('ps -ef |grep -v grep |grep chrome')
+    tool.check_process_exists_or_not('ps -ef |grep -v grep |grep google')
+
     n = randint(base_config.IS_ASIA, base_config.IS_EURO)
     func = base_config.MAP_FUNC[n]
     eval(func)()
