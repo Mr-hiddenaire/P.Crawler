@@ -3,11 +3,15 @@ from random import randint
 from services.content import ContentService
 from services.javlibrary.downloader import Downloader as JavlibraryDownloader
 from services.rarbg.downloader import Downloader as RarbgDownloader
+from utils import tool
 
 def do_asia():
     page = 1
     total = ContentService.get_total_torrent_not_download(types=base_config.IS_ASIA, is_scraped=base_config.DETAIL_SCRAPED_STATUS)
     pages = (total / base_config.COMMON_PAGES_SIZE) + 1
+
+    tool.check_process_exists_or_not('ps -ef |grep -v grep |grep chrome')
+    tool.check_process_exists_or_not('ps -ef |grep -v grep |grep google')
 
     while page <= pages:
         offset = (page - 1) * base_config.COMMON_PAGES_SIZE
